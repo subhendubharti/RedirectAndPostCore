@@ -9,5 +9,5 @@ Dotnet core library to redirect to another url with POST data
             data.Add("name", "Subhendu");
             data.Add("Age", 25);
             data.Add("nationailty","indian");
-            return new RedirectAndPostResult("http://subhendubharti.in", data);
+            return new RedirectAndPostResult("http://subhendubharti.in", data); 
  }
