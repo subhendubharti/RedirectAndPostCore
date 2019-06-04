@@ -33,7 +33,7 @@ public class RedirectAndPostResult : ActionResult
                 s.Append(string.Format("<input type=\"hidden\" name=\"{0}\" value=\"{1}\"/>", keyValuePair.Key, keyValuePair.Value));
             s.Append("</form>");
             s.Append("<script language=\"javascript\">");
-            s.Append(string.Format("document.postform.submit();"));
+            s.Append("document.postform.submit();");
             s.Append("</script>");
             return s.ToString();
         }
