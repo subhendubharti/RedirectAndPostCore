@@ -13,7 +13,7 @@ public class RedirectAndPostResult : ActionResult
         public RedirectAndPostResult(string url, Dictionary<string, object> data)
         {
             this._url = url;
-            this._data = data;
+            this._data = data??new Dictionary<string, object>();
         }
         public override void ExecuteResult(ActionContext context)
         {
@@ -27,16 +27,15 @@ public class RedirectAndPostResult : ActionResult
         }
         private string GenerateForm()
         {
-            StringBuilder stringBuilder1 = new StringBuilder();
-            stringBuilder1.Append(string.Format("<form id=\"postform\" name=\"postform\" action=\"{0}\" method=\"POST\">", (object)_url));
+            StringBuilder s = new StringBuilder();
+            s.Append(string.Format("<form id=\"postform\" name=\"postform\" action=\"{0}\" method=\"POST\">", _url));
             foreach (KeyValuePair<string, object> keyValuePair in _data)
-                stringBuilder1.Append(string.Format("<input type=\"hidden\" name=\"{0}\" value=\"{1}\"/>", (object)keyValuePair.Key, keyValuePair.Value));
-            stringBuilder1.Append("</form>");
-            StringBuilder stringBuilder2 = new StringBuilder();
-            stringBuilder2.Append("<script language=\"javascript\">");
-            stringBuilder2.Append(string.Format("document.postform.submit();"));
-            stringBuilder2.Append("</script>");
-            return stringBuilder1.ToString() + stringBuilder2.ToString();
+                s.Append(string.Format("<input type=\"hidden\" name=\"{0}\" value=\"{1}\"/>", keyValuePair.Key, keyValuePair.Value));
+            s.Append("</form>");
+            s.Append("<script language=\"javascript\">");
+            s.Append(string.Format("document.postform.submit();"));
+            s.Append("</script>");
+            return s.ToString();
         }
     }
 }
